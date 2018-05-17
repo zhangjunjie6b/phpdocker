@@ -21,3 +21,6 @@ Runtime/*
 /www/*
 #MAC下的讨厌的文件
 .DS_Store
+
+#忽略项目配置
+/nginx/conf.d/ibaotu.conf
