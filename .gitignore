@@ -18,7 +18,6 @@ Runtime/*
 
 #项目文件除了我的测试都不要
 /www 
-!/www/test/
-
+/www/*
 #MAC下的讨厌的文件
 .DS_Store

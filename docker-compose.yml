@@ -1,4 +1,4 @@
-version: '2.3'
+version: '3.1'
 services:
   #5.6
   php:
@@ -8,6 +8,7 @@ services:
     volumes:
         - ./php/php-fpm.d/:/etc/php-fpm.d/
         - ./www/:/www/
+        - ./www_test/:/www_test/
 
   nginx:
     build: ./nginx
@@ -20,6 +21,7 @@ services:
         - ./nginx/conf.d/:/etc/nginx/conf.d/
         - ./nginx/log/:/var/log/nginx/
         - ./www/:/www/
+        - ./www_test/:/www_test/
     links:
         - php:php
   #5.6
