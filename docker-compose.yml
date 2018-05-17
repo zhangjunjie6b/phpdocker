@@ -1,0 +1,41 @@
+version: '2.3'
+services:
+  #5.6
+  php:
+    build: ./php
+    ports:
+        - 9008:9000
+    volumes:
+        - ./php/php-fpm.d/:/etc/php-fpm.d/
+        - ./www/:/www/
+
+  nginx:
+    build: ./nginx
+    depends_on:
+        - php
+    ports:
+        - 80:80
+        - 443:443
+    volumes:
+        - ./nginx/conf.d/:/etc/nginx/conf.d/
+        - ./nginx/log/:/var/log/nginx/
+        - ./www/:/www/
+    links:
+        - php:php
+  #5.6
+  mysql:
+    build: ./mysql
+    ports:
+        - 3308:3306
+    volumes:
+        - ./mysql/data/:/var/lib/mysql/
+    environment:
+        MYSQL_ROOT_PASSWORD: ibaotu
+
+  redis:
+      build: ./redis
+
+      ports:
+        - 6378:6379
+      volumes:
+        - ./redis/data:/data
