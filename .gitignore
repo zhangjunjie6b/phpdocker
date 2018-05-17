@@ -1,0 +1,24 @@
+# 项目运行时文件
+Runtime
+Runtime/*
+
+#编辑器生成文件
+/.idea
+/tag
+/tag.idx
+
+#数据库文件
+/mysql/data/*
+
+#nginx日志文件
+/nginx/log/*
+
+#redis 持久化储存文件
+/redis/data
+
+#项目文件除了我的测试都不要
+
+!/www/test
+
+#MAC下的讨厌的文件
+.DS_Store
