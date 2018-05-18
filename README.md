@@ -37,7 +37,7 @@ Compose 是一个工具，定义和运行复杂Docker应用。使用Compose，�
 |
 └── www_test //测试项目文件
 ```
-##镜像介绍
+## 镜像介绍
 
 ### mysql
 
@@ -160,13 +160,28 @@ redis|6378|6379
 
 3. 启动 docker-compose
 > cd 到docker-compose.yml 同级目录
-> 执行docker-compose up
+> 执行 ./docker-run.sh
 
 4. 访问 http://127.0.0.1/ 查看是否正常启动
 
 5. 根据项目需求配置相应项目（见技术群内项目包）
 
 
+
+## 容器使用本机服务
+
+1. 添加环境变量
+
+```
+export DOCKERHOST=$(ifconfig | grep -E "([0-9]{1,3}\.){3}[0-9]{1,3}" | grep -v 127.0.0.1 | awk '{ print $2 }' | cut -f2 -d: | head -n1) \
+
+```
+
+2. docker-compose.yml 配置相应的 环境变量 映射关系
+
+
+# 注 
+1. 如非 './docker-run.sh' 脚本启动,请屏蔽docker-compose.yml的环境变量映射关系
 
 
 
