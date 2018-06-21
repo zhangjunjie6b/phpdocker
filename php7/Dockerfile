@@ -1,21 +1,15 @@
-FROM php:5.6.35-fpm-jessie
-MAINTAINER zjj <57305595@qq.com>
-EXPOSE 9000
-
-
-COPY ./conf/php-fpm.conf /usr/local/etc/php/php-fpm.conf
-COPY ./conf/php.ini /usr/local/etc/php/php.ini
+FROM php:7.1-fpm
 
 # pecl貌似被墙了,http://pecl.php.net/ 要包自己下
-
-RUN curl 'http://pecl.php.net/get/redis-2.2.5.tgz' -o redis.tgz \
-    && curl  'http://pecl.php.net/get/xdebug-2.2.2.tgz' -o xdebug.tgz \
+RUN curl 'http://pecl.php.net/get/redis-4.0.2.tgz' -o redis.tgz  \
     && pecl install redis.tgz \
-	&& pecl install xdebug.tgz \
-	&& docker-php-ext-enable redis xdebug
+	&& curl  'http://pecl.php.net/get/xdebug-2.6.0.tgz' -o xdebug.tgz \
+    && pecl install xdebug.tgz \
+    && docker-php-ext-enable redis xdebug
 
 
-RUN docker-php-ext-install mysql mysqli pdo_mysql opcache\
+
+RUN docker-php-ext-install mysqli pdo_mysql opcache\
     && curl -sS https://getcomposer.org/installer | php \
     && mv /var/www/html/composer.phar /usr/local/bin/composer \
     && composer config -g repo.packagist composer https://packagist.phpcomposer.com

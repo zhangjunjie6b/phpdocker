@@ -1,4 +1,4 @@
-version: '3.2'
+version: '3.0'
 services:
   #5.6
   php:
@@ -10,10 +10,25 @@ services:
         - ./www/:/www/
         - ./www_test/:/www_test/
 
+  #7.2
+  php7:
+    build: ./php7
+    depends_on:
+        - mysql
+    ports:
+        - 9078:9001
+    volumes:
+        - ./php/php-fpm.d/:/etc/php-fpm.d/
+        - ./www/:/www/
+        - ./www_test/:/www_test/
+    links:
+        - mysql:mysql
+
   nginx:
     build: ./nginx
     depends_on:
         - php
+        - php7
     ports:
         - 80:80
         - 443:443
@@ -24,8 +39,9 @@ services:
         - ./www_test/:/www_test/
     links:
         - php:php
-    extra_hosts:
-        - dockerhost:$DOCKERHOST
+        - php7:php7
+    #extra_hosts:
+    #    - dockerhost:$DOCKERHOST
   #5.6
   mysql:
     build: ./mysql

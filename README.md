@@ -181,6 +181,7 @@ export DOCKERHOST=$(ifconfig | grep -E "([0-9]{1,3}\.){3}[0-9]{1,3}" | grep -v 1
 
 
 # 注 
+
 1. 如非 './docker-run.sh' 脚本启动,请屏蔽docker-compose.yml的环境变量映射关系
 
 
