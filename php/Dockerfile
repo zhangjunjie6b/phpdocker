@@ -6,19 +6,33 @@ EXPOSE 9000
 COPY ./conf/php-fpm.conf /usr/local/etc/php/php-fpm.conf
 COPY ./conf/php.ini /usr/local/etc/php/php.ini
 
-# pecl貌似被墙了,http://pecl.php.net/ 要包自己下
+RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak && \
+echo 'deb http://mirrors.163.com/debian/ jessie main non-free contrib' > /etc/apt/sources.list && \
+echo 'deb http://mirrors.163.com/debian/ jessie-updates main non-free contrib' >> /etc/apt/sources.list && \
+echo 'deb http://mirrors.163.com/debian-security/ jessie/updates main non-free contrib' >> /etc/apt/sources.list
 
-RUN curl 'http://pecl.php.net/get/redis-2.2.5.tgz' -o redis.tgz \
-    && curl  'http://pecl.php.net/get/xdebug-2.2.2.tgz' -o xdebug.tgz \
-    && pecl install redis.tgz \
-	&& pecl install xdebug.tgz \
-	&& docker-php-ext-enable redis xdebug
+RUN apt-get update
+RUN apt-get install libxml2-dev
 
-
-RUN docker-php-ext-install mysql mysqli pdo_mysql opcache\
+RUN docker-php-ext-install soap mysql mysqli pdo_mysql opcache \
     && curl -sS https://getcomposer.org/installer | php \
     && mv /var/www/html/composer.phar /usr/local/bin/composer \
     && composer config -g repo.packagist composer https://packagist.phpcomposer.com
+
+# pecl貌似被墙了,http://pecl.php.net/ 要包自己下
+RUN curl 'http://pecl.php.net/get/redis-2.2.5.tgz' -o redis.tgz \
+    && pecl install redis.tgz \
+
+    && curl  'http://pecl.php.net/get/xdebug-2.2.2.tgz' -o xdebug.tgz \
+	&& pecl install xdebug.tgz \
+
+	&& curl  'http://pecl.php.net/get/swoole-2.0.6.tgz' -o swoole.tgz \
+    && pecl install swoole.tgz \
+
+	&& docker-php-ext-enable redis xdebug swoole
+
+
+
 
 
 #安装分词

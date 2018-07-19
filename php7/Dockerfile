@@ -1,13 +1,15 @@
-FROM php:7.1-fpm
+FROM php:7.1-fpm-jessie
+
+
 
 # pecl貌似被墙了,http://pecl.php.net/ 要包自己下
 RUN curl 'http://pecl.php.net/get/redis-4.0.2.tgz' -o redis.tgz  \
     && pecl install redis.tgz \
 	&& curl  'http://pecl.php.net/get/xdebug-2.6.0.tgz' -o xdebug.tgz \
     && pecl install xdebug.tgz \
-    && docker-php-ext-enable redis xdebug
-
-
+    && curl  'http://pecl.php.net/get/swoole-4.0.2.tgz' -o swoole.tgz \
+    && pecl install swoole.tgz \
+    && docker-php-ext-enable redis xdebug swoole
 
 RUN docker-php-ext-install mysqli pdo_mysql opcache\
     && curl -sS https://getcomposer.org/installer | php \
