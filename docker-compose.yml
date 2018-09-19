@@ -1,4 +1,4 @@
-version: '3.2'
+version: '3.4'
 services:
   #5.6
   php:
@@ -9,12 +9,15 @@ services:
         - ./php/php-fpm.d/:/etc/php-fpm.d/
         - ./www/:/www/
         - ./www_test/:/www_test/
+    links:
+        - mysql:mysql
 
   #7.2
   php7:
     build: ./php7
     depends_on:
         - mysql
+        - redis
     ports:
         - 9078:9001
     volumes:
@@ -23,7 +26,7 @@ services:
         - ./www_test/:/www_test/
     links:
         - mysql:mysql
-
+        - redis:redis
   nginx:
     build: ./nginx
     depends_on:
@@ -54,7 +57,6 @@ services:
 
   redis:
       build: ./redis
-
       ports:
         - 6378:6379
       volumes:

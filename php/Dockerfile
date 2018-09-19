@@ -12,9 +12,17 @@ echo 'deb http://mirrors.163.com/debian/ jessie-updates main non-free contrib' >
 echo 'deb http://mirrors.163.com/debian-security/ jessie/updates main non-free contrib' >> /etc/apt/sources.list
 
 RUN apt-get update
-RUN apt-get install libxml2-dev
+RUN apt-get install -y \
+        libfreetype6-dev \
+		libjpeg62-turbo-dev \
+		libmcrypt-dev \
+		libpng-dev \
+        libxml2-dev \
+    && docker-php-ext-install -j$(nproc) iconv mcrypt \
+	&& docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+	&& docker-php-ext-install -j$(nproc) gd
 
-RUN docker-php-ext-install soap mysql mysqli pdo_mysql opcache \
+RUN docker-php-ext-install soap mysql mysqli pdo_mysql opcache  \
     && curl -sS https://getcomposer.org/installer | php \
     && mv /var/www/html/composer.phar /usr/local/bin/composer \
     && composer config -g repo.packagist composer https://packagist.phpcomposer.com
@@ -30,7 +38,6 @@ RUN curl 'http://pecl.php.net/get/redis-2.2.5.tgz' -o redis.tgz \
     && pecl install swoole.tgz \
 
 	&& docker-php-ext-enable redis xdebug swoole
-
 
 
 

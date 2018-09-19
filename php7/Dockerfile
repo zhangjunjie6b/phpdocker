@@ -2,6 +2,24 @@ FROM php:7.1-fpm-jessie
 
 
 
+RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak && \
+echo 'deb http://mirrors.163.com/debian/ jessie main non-free contrib' > /etc/apt/sources.list && \
+echo 'deb http://mirrors.163.com/debian/ jessie-updates main non-free contrib' >> /etc/apt/sources.list && \
+echo 'deb http://mirrors.163.com/debian-security/ jessie/updates main non-free contrib' >> /etc/apt/sources.list
+
+RUN apt-get update
+RUN apt-get install -y \
+        libfreetype6-dev \
+		libjpeg62-turbo-dev \
+		libmcrypt-dev \
+		libpng-dev \
+        libxml2-dev \
+        libmagickwand-dev \
+        libmagickcore-dev \
+    && docker-php-ext-install -j$(nproc) iconv mcrypt \
+	&& docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+	&& docker-php-ext-install -j$(nproc) gd
+
 # pecl貌似被墙了,http://pecl.php.net/ 要包自己下
 RUN curl 'http://pecl.php.net/get/redis-4.0.2.tgz' -o redis.tgz  \
     && pecl install redis.tgz \
@@ -9,7 +27,9 @@ RUN curl 'http://pecl.php.net/get/redis-4.0.2.tgz' -o redis.tgz  \
     && pecl install xdebug.tgz \
     && curl  'http://pecl.php.net/get/swoole-4.0.2.tgz' -o swoole.tgz \
     && pecl install swoole.tgz \
-    && docker-php-ext-enable redis xdebug swoole
+    && curl 'http://pecl.php.net/get/imagick-3.4.3.tgz' -o imagick.tgz\
+    && pecl install imagick.tgz \
+    && docker-php-ext-enable imagick redis xdebug swoole
 
 RUN docker-php-ext-install mysqli pdo_mysql opcache\
     && curl -sS https://getcomposer.org/installer | php \
