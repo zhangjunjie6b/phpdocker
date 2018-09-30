@@ -55,6 +55,17 @@ RUN curl 'http://www.xunsearch.com/scws/down/scws-1.2.3.tar.bz2' -o scws.tar.bz2
     && echo "scws.default.charset = utf8" >> /usr/local/etc/php/conf.d/docker-php-ext-scws.ini \
     && echo "scws.default.fpath = /usr/local/scws/etc" >> /usr/local/etc/php/conf.d/docker-php-ext-scws.ini
 
+#pcntl 安装
+
+RUN cd /usr/src/ \
+    && tar -xvf php.tar.xz \
+    && cd /usr/src/php-7.1.19/ext/pcntl \
+    && phpize \
+    && ./configure --with-php-config=/usr/local/bin/php-config \
+    &&  make && make install \
+    && docker-php-ext-enable pcntl
+
+
 
 RUN cd /var/www/html/ \
     && rm -rf redis.tgz  scws-1.2.3  scws.tar.bz2  xdebug.tgz \
