@@ -18,11 +18,15 @@ RUN apt-get install -y \
 		libmcrypt-dev \
 		libpng-dev \
         libxml2-dev \
+        libgmp-dev\
+    && ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/ \
+    && docker-php-ext-configure gmp \
+     && docker-php-ext-install -j$(nproc) gmp \
     && docker-php-ext-install -j$(nproc) iconv mcrypt \
-	&& docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+	&& docker-php-ext-configure gd  --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
 	&& docker-php-ext-install -j$(nproc) gd
 
-RUN docker-php-ext-install soap mysql mysqli pdo_mysql opcache  \
+RUN docker-php-ext-install soap mysql mysqli pdo_mysql opcache\
     && curl -sS https://getcomposer.org/installer | php \
     && mv /var/www/html/composer.phar /usr/local/bin/composer \
     && composer config -g repo.packagist composer https://packagist.phpcomposer.com
@@ -37,8 +41,7 @@ RUN curl 'http://pecl.php.net/get/redis-2.2.5.tgz' -o redis.tgz \
 	&& curl  'http://pecl.php.net/get/swoole-2.0.6.tgz' -o swoole.tgz \
     && pecl install swoole.tgz \
 
-	&& docker-php-ext-enable redis xdebug swoole
-
+	&& docker-php-ext-enable redis xdebug swoole gmp
 
 
 
