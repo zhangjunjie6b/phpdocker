@@ -77,6 +77,7 @@ fileinfo
 filter
 ftp
 hash
+gmp `2019年02月17日03:24:42更新`
 iconv
 json
 libxml
@@ -176,7 +177,10 @@ redis|6378|6379
 
 5. 根据项目需求配置相应项目（见技术群内项目包）
 
-
+## 日常更新这3部即可
+> git pull
+> docker-compose build
+> docker-compose up
 
 ## 容器使用本机服务
 
