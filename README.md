@@ -147,7 +147,7 @@ aof_base_size|AOF上次启动和重写的尺寸（单位：字节）
 ```
 appendonly yes
 appendfilename "appendonly-${port}.aof"
-appendfsync everysec
+**appendfsync** everysec
 dir /bigdiskpath
 no-appendfsync-on-rewrite yes
 

@@ -16,6 +16,10 @@ RUN apt-get install -y \
         libxml2-dev \
         libmagickwand-dev \
         libmagickcore-dev \
+        libgmp-dev \
+    && ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/ \
+    && docker-php-ext-configure gmp \
+    && docker-php-ext-install -j$(nproc) gmp \
     && docker-php-ext-install -j$(nproc) iconv mcrypt \
 	&& docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
 	&& docker-php-ext-install -j$(nproc) gd
@@ -29,7 +33,7 @@ RUN curl 'http://pecl.php.net/get/redis-4.0.2.tgz' -o redis.tgz  \
     && pecl install swoole.tgz \
     && curl 'http://pecl.php.net/get/imagick-3.4.3.tgz' -o imagick.tgz\
     && pecl install imagick.tgz \
-    && docker-php-ext-enable imagick redis xdebug swoole
+    && docker-php-ext-enable imagick redis xdebug swoole gmp
 
 RUN docker-php-ext-install mysqli pdo_mysql opcache\
     && curl -sS https://getcomposer.org/installer | php \
@@ -58,8 +62,11 @@ RUN curl 'http://www.xunsearch.com/scws/down/scws-1.2.3.tar.bz2' -o scws.tar.bz2
 #pcntl 安装
 
 RUN cd /usr/src/ \
-    && tar -xvf php.tar.xz \
-    && cd /usr/src/php-7.1.19/ext/pcntl \
+    && mkdir /usr/src/php \
+    && tar -xvf php.tar.xz -C ./php\
+    && cd /usr/src/php \
+    && mv * php7 \
+    && cd /usr/src/php/php7/ext/pcntl \
     && phpize \
     && ./configure --with-php-config=/usr/local/bin/php-config \
     &&  make && make install \
