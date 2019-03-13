@@ -27,6 +27,8 @@ services:
     links:
         - mysql:mysql
         - redis:redis
+    #extra_hosts:
+     # - dockerhost:$DOCKERHOST
   nginx:
     build: ./nginx
     depends_on:
@@ -43,8 +45,7 @@ services:
     links:
         - php:php
         - php7:php7
-    #extra_hosts:
-    #    - dockerhost:$DOCKERHOST
+
   #5.6
   mysql:
     build: ./mysql

@@ -67,3 +67,6 @@ RUN curl 'http://www.xunsearch.com/scws/down/scws-1.2.3.tar.bz2' -o scws.tar.bz2
 RUN cd /var/www/html/ \
     && rm -rf redis.tgz  scws-1.2.3  scws.tar.bz2  xdebug.tgz \
     && mkdir /etc/php-fpm.d/
+
+#xdebug配置
+RUN echo "xdebug.remote_host= 10.0.1.1 \n xdebug.remote_port = 9123 \n xdebug.idekey = PHPSTORM \n xdebug.remote_log='/www/xdebug_php5.6.log' \n xdebug.remote_enable = 1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
