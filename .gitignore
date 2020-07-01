@@ -23,4 +23,5 @@ Runtime/*
 .DS_Store
 
 #忽略项目配置
+/nginx/conf.d/*
 /nginx/conf.d/ibaotu.conf
