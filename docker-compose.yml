@@ -12,7 +12,7 @@ services:
     links:
         - mysql:mysql
 
-  #7.2
+  #7.1
   php7:
     build: ./php7
     depends_on:
@@ -29,6 +29,21 @@ services:
         - redis:redis
     #extra_hosts:
      # - dockerhost:$DOCKERHOST
+
+  #7.2
+  php7.2:
+    build: ./php7.2
+    depends_on:
+      - mysql
+      - redis
+    ports:
+      - 9088:9000
+    volumes:
+      - ./www/:/www/
+    links:
+      - mysql:mysql
+      - redis:redis
+
   nginx:
     build: ./nginx
     depends_on:

@@ -33,8 +33,7 @@ RUN curl 'http://pecl.php.net/get/redis-4.0.2.tgz' -o redis.tgz  \
     && pecl install swoole.tgz \
     && curl 'http://pecl.php.net/get/imagick-3.4.3.tgz' -o imagick.tgz\
     && pecl install imagick.tgz \
-    && pecl install grpc \
-    && docker-php-ext-enable imagick redis xdebug swoole gmp grpc
+    && docker-php-ext-enable imagick redis xdebug swoole gmp
 
 RUN docker-php-ext-install mysqli pdo_mysql opcache\
     && curl -sS https://getcomposer.org/installer | php \
