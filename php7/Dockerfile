@@ -17,6 +17,11 @@ RUN apt-get install -y \
         libmagickwand-dev \
         libmagickcore-dev \
         libgmp-dev \
+        libcurl4-gnutls-dev \
+        libexpat1-dev \
+        gettext \
+        libz-dev \
+        libssl-dev \
     && ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/ \
     && docker-php-ext-configure gmp \
     && docker-php-ext-install -j$(nproc) gmp \
@@ -59,6 +64,15 @@ RUN curl 'http://www.xunsearch.com/scws/down/scws-1.2.3.tar.bz2' -o scws.tar.bz2
     && echo "scws.default.charset = utf8" >> /usr/local/etc/php/conf.d/docker-php-ext-scws.ini \
     && echo "scws.default.fpath = /usr/local/scws/etc" >> /usr/local/etc/php/conf.d/docker-php-ext-scws.ini
 
+RUN curl 'https://codeload.github.com/swoole/swoole-src/tar.gz/v4.0.1' -o swoole.tar.gz \
+    && tar -zxvf swoole.tar.gz \
+    && cd swoole-src-4.0.1 \
+    && phpize \
+    && ./configure --enable-openssl \
+    && make \
+    && make install \
+    && docker-php-ext-enable swoole
+
 #pcntl 安装
 
 RUN cd /usr/src/ \
@@ -72,11 +86,9 @@ RUN cd /usr/src/ \
     &&  make && make install \
     && docker-php-ext-enable pcntl
 
-
-
 RUN cd /var/www/html/ \
     && rm -rf redis.tgz  scws-1.2.3  scws.tar.bz2  xdebug.tgz \
     && mkdir /etc/php-fpm.d/
 
 #xdebug配置
-RUN echo "xdebug.remote_host= 10.0.1.1 \n xdebug.remote_port = 9123 \n xdebug.idekey = PHPSTORM \n xdebug.remote_log='/www/xdebug_php7.log' \n xdebug.remote_enable = 1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+#RUN echo "xdebug.remote_host= 10.0.1.1 \n xdebug.remote_port = 9123 \n xdebug.idekey = PHPSTORM \n xdebug.remote_log='/www/xdebug_php7.log' \n xdebug.remote_enable = 1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini

@@ -64,7 +64,8 @@ Linux|Y
 > [PHP 基础镜像][3]
 
 > 已安装扩展
-> 
+
+PHP5.6
 ```
 [PHP Modules]
 Core
@@ -76,12 +77,14 @@ ereg
 fileinfo
 filter
 ftp
+gd
+gmp
 hash
-gmp `2019年02月17日03:24:42更新`
 iconv
 json
 libxml
 mbstring
+mcrypt
 mysql
 mysqli
 mysqlnd
@@ -98,17 +101,165 @@ Reflection
 scws
 session
 SimpleXML
+soap
 SPL
 sqlite3
 standard
+swoole
 tokenizer
 xdebug
 xml
 xmlreader
 xmlwriter
+Zend OPcache
 zlib
+
 [Zend Modules]
+Xdebug
+Zend OPcache
 ```
+
+
+PHP7.1
+
+
+```
+[PHP Modules]
+Core
+ctype
+curl
+date
+dom
+fileinfo
+filter
+ftp
+gd
+gmp
+hash
+iconv
+imagick
+json
+libxml
+mbstring
+mcrypt
+mysqli
+mysqlnd
+openssl
+pcntl
+pcre
+PDO
+pdo_mysql
+pdo_sqlite
+Phar
+posix
+readline
+redis
+Reflection
+scws
+session
+SimpleXML
+SPL
+sqlite3
+standard
+swoole
+tokenizer
+xdebug
+xml
+xmlreader
+xmlwriter
+Zend OPcache
+zlib
+
+[Zend Modules]
+Xdebug
+Zend OPcache
+
+
+swoole
+
+swoole support => enabled
+Version => 4.0.1
+Author => tianfeng.han[email: mikan.tenny@gmail.com]
+coroutine => enabled
+epoll => enabled
+eventfd => enabled
+timerfd => enabled
+signalfd => enabled
+cpu affinity => enabled
+spinlock => enabled
+rwlock => enabled
+async http/websocket client => enabled
+openssl => enabled
+Linux Native AIO => enabled
+pcre => enabled
+zlib => enabled
+mutex_timedlock => enabled
+pthread_barrier => enabled
+futex => enabled
+
+Directive => Local Value => Master Value
+swoole.aio_thread_num => 2 => 2
+swoole.display_errors => On => On
+swoole.use_namespace => On => On
+swoole.use_shortname => On => On
+swoole.fast_serialize => Off => Off
+swoole.unixsock_buffer_size => 8388608 => 8388608
+
+```
+
+
+PHP7.2
+
+```
+[PHP Modules]
+bcmath
+Core
+ctype
+curl
+date
+dom
+fileinfo
+filter
+ftp
+gd
+grpc
+hash
+iconv
+imagick
+json
+libxml
+mbstring
+mysqli
+mysqlnd
+openssl
+pcre
+PDO
+pdo_mysql
+pdo_sqlite
+Phar
+posix
+readline
+redis
+Reflection
+session
+SimpleXML
+sodium
+SPL
+sqlite3
+standard
+swoole
+tokenizer
+xml
+xmlreader
+xmlwriter
+Zend OPcache
+zip
+zlib
+
+[Zend Modules]
+Zend OPcache
+```
+
 ### redis
 
 > 版本3.2.11 注：线上redis版本2.8
@@ -150,7 +301,6 @@ appendfilename "appendonly-${port}.aof"
 **appendfsync** everysec
 dir /bigdiskpath
 no-appendfsync-on-rewrite yes
-
 ```
 
 ## 端口映射关系
@@ -158,7 +308,6 @@ no-appendfsync-on-rewrite yes
 服务名|宿主机|容器
 :-:|:-:|:-:
 nginx|80 443|80 433
-php|9008|9000
 mysql|3308|3306
 redis|6378|6379
 
@@ -197,11 +346,6 @@ export DOCKERHOST=$(ifconfig | grep -E "([0-9]{1,3}\.){3}[0-9]{1,3}" | grep -v 1
 # 注 
 
 1. 如非 './docker-run.sh' 脚本启动,请屏蔽docker-compose.yml的环境变量映射关系
-
-
-
-
-
 
 
 

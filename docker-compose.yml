@@ -20,6 +20,7 @@ services:
         - redis
     ports:
         - 9078:9001
+        - 5555:5555
     volumes:
         - ./php/php-fpm.d/:/etc/php-fpm.d/
         - ./www/:/www/
