@@ -2,9 +2,46 @@
 
 # PHP本地开发环境Docker-测试版
 
+
 ## Docker Compose介绍
 
 Compose 是一个工具，定义和运行复杂Docker应用。使用Compose，你定义多容器应用在当个文件中，然后将你的所有应用联系在一起，通过单一命令就可以完成运行这么多容器应用的事情。
+
+
+
+
+## 快速安装
+
+> 3个版本的php会有大量的编译过程，已全部推送至阿里镜像仓库。下面2种安装方式选一即可
+
+### 远程镜像安装(节约大量时间)
+
+版本|远程地址
+:-:|:-:
+php5.6|registry.cn-shanghai.aliyuncs.com/ibaotu/php
+php7.1|registry.cn-shanghai.aliyuncs.com/ibaotu/php7.1
+php7.2|registry.cn-shanghai.aliyuncs.com/ibaotu/php7.2
+
+1. [下载发布文件](https://github.com/zhangjunjie6b/phpdocker/releases/new)
+2. 启动 docker-compose
+> cd 到docker-compose.yml 同级目录
+> 执行 ./docker-run.sh
+3.  访问 http://127.0.0.1/ 查看是否正常启动
+
+
+### 源码编译
+
+2. git拉取docker-compose
+> git clone git@github.com:zhangjunjie6b/phpdocker.git
+
+3. 启动 docker-compose
+> cd 到docker-compose.yml 同级目录
+> 执行 ./docker-run.sh
+
+4. 访问 http://127.0.0.1/ 查看是否正常启动
+
+5. 根据项目需求配置相应项目（见技术群内项目包）
+
 
 ## 支持操作系统
 
@@ -311,20 +348,9 @@ nginx|80 443|80 433
 mysql|3308|3306
 redis|6378|6379
 
-## 使用
 
-1. 安装docker
+## 
 
-2. git拉取docker-compose
-> git clone git@github.com:526353781/phpdocker.git
-
-3. 启动 docker-compose
-> cd 到docker-compose.yml 同级目录
-> 执行 ./docker-run.sh
-
-4. 访问 http://127.0.0.1/ 查看是否正常启动
-
-5. 根据项目需求配置相应项目（见技术群内项目包）
 
 ## 日常更新这3部即可
 > git pull
