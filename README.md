@@ -22,7 +22,7 @@ php5.6|registry.cn-shanghai.aliyuncs.com/ibaotu/php
 php7.1|registry.cn-shanghai.aliyuncs.com/ibaotu/php7.1
 php7.2|registry.cn-shanghai.aliyuncs.com/ibaotu/php7.2
 
-1. [下载发布文件](https://github.com/zhangjunjie6b/phpdocker/releases/new)
+1. [下载发布文件](https://github.com/zhangjunjie6b/phpdocker/releases)
 2. 启动 docker-compose
 > cd 到docker-compose.yml 同级目录
 > 执行 ./docker-run.sh
