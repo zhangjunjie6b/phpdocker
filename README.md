@@ -21,6 +21,7 @@ Compose 是一个工具，定义和运行复杂Docker应用。使用Compose，�
 php5.6|registry.cn-shanghai.aliyuncs.com/ibaotu/php
 php7.1|registry.cn-shanghai.aliyuncs.com/ibaotu/php7.1
 php7.2|registry.cn-shanghai.aliyuncs.com/ibaotu/php7.2
+php8.1.4|registry.cn-shanghai.aliyuncs.com/ibaotu/php8.1.4
 
 1. [下载发布文件](https://github.com/zhangjunjie6b/phpdocker/releases)
 2. 启动 docker-compose
@@ -285,6 +286,56 @@ SPL
 sqlite3
 standard
 swoole
+tokenizer
+xml
+xmlreader
+xmlwriter
+Zend OPcache
+zip
+zlib
+
+[Zend Modules]
+Zend OPcache
+```
+
+php8.1.4
+```
+[PHP Modules]
+bcmath
+Core
+ctype
+curl
+date
+dom
+fileinfo
+filter
+ftp
+gd
+grpc
+hash
+iconv
+imagick
+json
+libxml
+mbstring
+mysqli
+mysqlnd
+openssl
+pcre
+PDO
+pdo_mysql
+pdo_sqlite
+Phar
+posix
+readline
+redis
+Reflection
+session
+SimpleXML
+sodium
+SPL
+sqlite3
+standard
 tokenizer
 xml
 xmlreader

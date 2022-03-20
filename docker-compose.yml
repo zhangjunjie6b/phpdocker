@@ -61,7 +61,20 @@ services:
     links:
         - php:php
         - php7:php7
-
+        -
+  #php8.1.4
+  php8.1.4:
+    build: ./php8.1.4
+    depends_on:
+      - mysql
+      - redis
+    ports:
+      - 9089:9000
+    volumes:
+      - ./www/:/www/
+    links:
+      - mysql:mysql
+      - redis:redis
   #5.6
   mysql:
     build: ./mysql
