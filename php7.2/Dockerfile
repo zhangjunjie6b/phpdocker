@@ -24,8 +24,8 @@ RUN apt-get install -y \
 
 RUN  git clone -b v1.50.x https://github.com/grpc/grpc \
         && cd grpc && git submodule update --init \
-        && cd grpc &&  mkdir -p cmake/build && cd cmake/build && cmake ../.. && make grpc_php_plugin \
-        && cp ./grpc_php_plugin /usr/local/bin/grpc_php_plugin \
+        && mkdir -p cmake/build && cd cmake/build && cmake ../.. && make grpc_php_plugin \
+        && cp ./grpc_php_plugin /usr/local/bin/grpc_php_plugin
 
 RUN  rm -rf ~/grpc
 
