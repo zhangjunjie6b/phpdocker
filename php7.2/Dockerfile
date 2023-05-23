@@ -35,4 +35,5 @@ RUN pecl install redis-5.3.2  \
     && pecl install imagick-3.4.4 \
     && pecl install grpc-1.33.1 \
     && pecl install zip \
-    && docker-php-ext-enable imagick redis swoole grpc zip
+    && pecl install protobuf \
+    && docker-php-ext-enable protobuf imagick redis swoole grpc zip
